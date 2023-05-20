@@ -1,0 +1,64 @@
+<style>
+    .mailbox {
+  position: relative;
+  font-size: 16px;
+  line-height: 2.5em;
+  margin: 0.3em;
+}
+
+.notification {
+  /* circle shape, size and position */
+  position: absolute;
+  right: -0.7em;
+  top: -0.7em;
+  min-width: 1.6em; /* or width, explained below. */
+  height: 1.6em;
+  border-radius: 0.8em; /* or 50%, explained below. */
+  border: 0.05em solid white;
+  background-color: red;
+
+  /* number size and position */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  color: white;
+}
+</style>
+
+<p>Font size:
+    <span id="label">16</span>
+    <input id="slider" type="range" min="6" max="66" step="1" value="16"></p>
+  
+  <button class="mailbox">📨 Unread
+      <div class="notification" role="status">3</div>
+  </button>
+  <button class="mailbox">📥 Inbox
+      <div class="notification" role="status">42</div>
+  </button>
+  <button class="mailbox">🗑 Junk
+      <div class="notification" role="status">1630</div>
+  </button>
+
+  <script>
+    var boxes = document.getElementsByClassName("mailbox");
+
+function updateFontSize(size) {
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].style.fontSize = size + "px";
+  }
+}
+
+var px = getComputedStyle(boxes[0]).fontSize
+
+var label = document.getElementById("label");
+label.innerHTML = px
+
+var slider = document.getElementById('slider');
+slider.value = px.slice(0, -2)
+slider.onchange = () => {
+  label.innerHTML = slider.value + "px";
+  updateFontSize(slider.value);
+}
+  </script>
+
